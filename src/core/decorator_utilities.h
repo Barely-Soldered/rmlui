@@ -1,0 +1,13 @@
+#pragma once
+
+#include <rmlui/core/numeric_value.h>
+#include <rmlui/core/types.h>
+
+namespace Rml {
+
+using Vector2Numeric = Vector2<NumericValue>;
+
+// Compute a 2d-position property value into a percentage-length vector.
+Vector2Numeric ComputePosition(Array<const Property*, 2> p_position);
+
+} // namespace Rml
