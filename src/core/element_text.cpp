@@ -416,28 +416,41 @@ void ElementText::OnPropertyChange(const PropertyIdSet& changed_properties)
 			decoration.reset();
 	}
 
+	// Barely-Soldered: a change to the decoration's own colour re-colours the decoration alone; the glyphs are untouched.
+	const bool decoration_colour_changed = changed_properties.Contains(PropertyId::TextDecorationColor);
+
 	if (font_face_changed)
 	{
 		// We have to let our document know we need to be regenerated.
 		if (dirty_layout_on_change)
 			DirtyLayout();
 	}
-	else if (colour_changed)
+	else if (colour_changed || decoration_colour_changed)
 	{
 		// Force the geometry to be regenerated.
-		geometry_dirty = true;
+		if (colour_changed)
+			geometry_dirty = true;
 
 		// Re-colour the decoration geometry.
 		if (decoration)
 		{
+			const ColourbPremultiplied decoration_colour = DecorationColour();
+
 			Mesh mesh = decoration->Release();
 			for (Vertex& vertex : mesh.vertices)
-				vertex.colour = colour;
+				vertex.colour = decoration_colour;
 
 			if (RenderManager* render_manager = GetRenderManager())
 				*decoration = render_manager->MakeGeometry(std::move(mesh));
 		}
 	}
+}
+
+ColourbPremultiplied ElementText::DecorationColour() const
+{
+	const auto& computed = GetComputedValues();
+
+	return computed.has_text_decoration_color() ? computed.text_decoration_color().ToPremultiplied(opacity) : colour;
 }
 
 void ElementText::GetRML(String& content)
@@ -562,7 +575,7 @@ void ElementText::GenerateDecoration(Mesh& mesh, const FontFaceHandle font_face_
 	{
 		const Vector2f position = {line.position.x, line.position.y + offset};
 		const Vector2f size = {(float)line.width, metrics.underline_thickness};
-		MeshUtilities::GenerateLine(mesh, position, size, colour);
+		MeshUtilities::GenerateLine(mesh, position, size, DecorationColour());
 	}
 }
 

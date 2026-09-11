@@ -1243,6 +1243,12 @@ void ElementStyle::ComputeValue(Style::ComputedValues& values, float dp_ratio, V
 	case PropertyId::TextDecoration:
 		values.text_decoration((TextDecoration)p->Get<int>());
 		break;
+	case PropertyId::TextDecorationColor:
+		// Barely-Soldered: a colour sets it; the 'currentcolor' keyword clears it back to the text colour.
+		values.has_text_decoration_color(p->unit != Unit::KEYWORD);
+		if (p->unit != Unit::KEYWORD)
+			values.text_decoration_color(p->Get<Colourb>());
+		break;
 	case PropertyId::TextTransform:
 		values.text_transform((TextTransform)p->Get<int>());
 		break;

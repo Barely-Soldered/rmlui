@@ -88,7 +88,8 @@ namespace Style {
 			font_weight(FontWeight::Normal), font_kerning(FontKerning::Auto), has_letter_spacing(0), font_style(FontStyle::Normal),
 			has_font_effect(false), pointer_events(PointerEvents::Auto), focus(Focus::Auto), text_align(TextAlign::Left),
 			text_decoration(TextDecoration::None), text_transform(TextTransform::None), white_space(WhiteSpace::Normal),
-			word_break(WordBreak::Normal), direction(Direction::Auto), line_height_inherit_type(LineHeight::Number)
+			word_break(WordBreak::Normal), direction(Direction::Auto), has_text_decoration_color(false),
+			line_height_inherit_type(LineHeight::Number)
 		{}
 
 		// Font face used to render text and resolve ex properties. Does not represent a true property
@@ -99,6 +100,8 @@ namespace Style {
 
 		float opacity = 1;
 		Colourb color = Colourb(255, 255, 255);
+		// Barely-Soldered: text-decoration-color; read only when has_text_decoration_color, else the decoration wears `color`.
+		Colourb text_decoration_color = Colourb(255, 255, 255);
 
 		FontWeight font_weight : 10;
 		FontKerning font_kerning : 2;
@@ -116,6 +119,8 @@ namespace Style {
 		WordBreak word_break : 2;
 
 		Direction direction : 2;
+
+		bool has_text_decoration_color : 1;
 
 		LineHeight::InheritType line_height_inherit_type : 1;
 		float line_height = 12.f * 1.2f;
@@ -244,6 +249,8 @@ namespace Style {
 		WordBreak      word_break()       const { return inherited.word_break; }
 		Colourb        color()            const { return inherited.color; }
 		float          opacity()          const { return inherited.opacity; }
+		bool           has_text_decoration_color() const { return inherited.has_text_decoration_color; }
+		Colourb        text_decoration_color()     const { return inherited.text_decoration_color; }
 		LineHeight     line_height()      const { return LineHeight(inherited.line_height, inherited.line_height_inherit_type, inherited.line_height_inherit); }
 		const String&  language()         const { return inherited.language; }
 		Direction      direction()        const { return inherited.direction; }
@@ -346,6 +353,8 @@ namespace Style {
 		void white_space       (WhiteSpace value)     { inherited.white_space        = value; }
 		void word_break        (WordBreak value)      { inherited.word_break         = value; }
 		void color             (Colourb value)        { inherited.color              = value; }
+		void has_text_decoration_color(bool value)    { inherited.has_text_decoration_color = value; }
+		void text_decoration_color(Colourb value)     { inherited.text_decoration_color = value; }
 		void opacity           (float value)          { inherited.opacity            = value; }
 		void line_height       (LineHeight value)     { inherited.line_height = value.value; inherited.line_height_inherit_type = value.inherit_type; inherited.line_height_inherit = value.inherit_value;  }
 		void language          (const String& value)  { inherited.language           = value; }

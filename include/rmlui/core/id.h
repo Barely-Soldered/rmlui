@@ -103,6 +103,7 @@ enum class PropertyId : uint8_t {
 	LetterSpacing,
 	TextAlign,
 	TextDecoration,
+	TextDecorationColor,
 	TextTransform,
 	WhiteSpace,
 	WordBreak,

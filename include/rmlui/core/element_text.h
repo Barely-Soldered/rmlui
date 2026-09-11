@@ -73,6 +73,8 @@ private:
 	void GenerateGeometry(RenderManager& render_manager, FontFaceHandle font_face_handle);
 	// Generates any geometry necessary for rendering decoration (underline, strike-through, etc).
 	void GenerateDecoration(Mesh& mesh, FontFaceHandle font_face_handle);
+	// Barely-Soldered: the colour the decoration is drawn in, text-decoration-color at the text's opacity, or the text colour when unset.
+	ColourbPremultiplied DecorationColour() const;
 
 	String text;
 
