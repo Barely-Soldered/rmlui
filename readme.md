@@ -1,4 +1,6 @@
-﻿# RmlUi - The HTML/CSS User Interface Library Evolved
+> **Modified copy.** This is a modified copy of RmlUi 6.2, maintained by Barely Soldered at https://github.com/Barely-Soldered/rmlui (tag 6.2-bs.2) for its own projects: rebuilt for meson alone, with components it does not use removed, the tree restructured, and changes to the core (among them the text-input line breaking of 2026-10-01). It is not the original software, which is at https://github.com/mikke89/RmlUi. The licence is unchanged; see LICENSE.txt, include/rmlui/core/containers/LICENSE.txt and src/debugger/LICENSE.txt.
+
+# RmlUi - The HTML/CSS User Interface Library Evolved
 
 ![RmlUi logo](https://github.com/mikke89/RmlUiDoc/raw/c7253748d1bcf6dd33d97ab4fe8b6731a7ee3dac/assets/rmlui.png)
 
