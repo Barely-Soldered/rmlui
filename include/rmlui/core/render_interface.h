@@ -57,6 +57,13 @@ public:
 	/// @param[in] source_dimensions The dimensions, in pixels, of the source data.
 	/// @return An application-specified handle identifying the texture, or zero if it could not be generated.
 	virtual TextureHandle GenerateTexture(Span<const byte> source, Vector2i source_dimensions) = 0;
+	/// Called by RmlUi when a texture is generated on behalf of a font effect that declares a texture class.
+	/// @param[in] source The raw texture data, as above.
+	/// @param[in] source_dimensions The dimensions, in pixels, of the source data.
+	/// @param[in] texture_class The class the font effect declared through FontEffect::GetTextureClass().
+	/// @return An application-specified handle identifying the texture, or zero if it could not be generated.
+	/// @note The default implementation ignores the class and forwards to the two-argument overload.
+	virtual TextureHandle GenerateTexture(Span<const byte> source, Vector2i source_dimensions, int texture_class);
 	/// Called by RmlUi when a loaded or generated texture is no longer required.
 	/// @param[in] texture The texture handle to release.
 	virtual void ReleaseTexture(TextureHandle texture) = 0;

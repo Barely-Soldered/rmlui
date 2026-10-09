@@ -17,6 +17,11 @@ public:
 	/// @return True if the effect generates its own textures, false if not. The default implementation returns false.
 	virtual bool HasUniqueTexture() const;
 
+	/// Asks the font effect which texture class its unique textures belong to. The render interface receives the class
+	/// alongside the generated texture, so it can draw the effect's geometry through a program of its own.
+	/// @return An application-defined class, zero for an ordinary texture. The default implementation returns zero.
+	virtual int GetTextureClass() const;
+
 	/// Requests the effect for a size and position of a single glyph's bitmap.
 	/// @param[out] origin The desired origin of the effect's glyph bitmap, as a pixel offset from its original origin. This defaults to (0, 0).
 	/// @param[out] dimensions The desired dimensions of the effect's glyph bitmap, in pixels. This defaults to the dimensions of the glyph's original

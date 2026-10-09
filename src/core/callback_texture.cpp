@@ -22,14 +22,14 @@ CallbackTextureInterface::CallbackTextureInterface(RenderManager& render_manager
 	Vector2i& dimensions) : render_manager(render_manager), render_interface(render_interface), texture_handle(texture_handle), dimensions(dimensions)
 {}
 
-bool CallbackTextureInterface::GenerateTexture(Span<const byte> source, Vector2i new_dimensions) const
+bool CallbackTextureInterface::GenerateTexture(Span<const byte> source, Vector2i new_dimensions, int texture_class) const
 {
 	if (texture_handle)
 	{
 		RMLUI_ERRORMSG("Texture already set");
 		return false;
 	}
-	texture_handle = render_interface.GenerateTexture(source, new_dimensions);
+	texture_handle = render_interface.GenerateTexture(source, new_dimensions, texture_class);
 	if (texture_handle)
 		dimensions = new_dimensions;
 	return texture_handle != TextureHandle{};

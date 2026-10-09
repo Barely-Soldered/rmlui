@@ -48,8 +48,9 @@ public:
 	/// Generate texture from byte source.
 	/// @param[in] source Texture data in 8-bit RGBA (premultiplied) format.
 	/// @param[in] dimensions The width and height of the texture.
+	/// @param[in] texture_class An application-defined class handed to the render interface, zero for an ordinary texture.
 	/// @return True on success.
-	bool GenerateTexture(Span<const byte> source, Vector2i dimensions) const;
+	bool GenerateTexture(Span<const byte> source, Vector2i dimensions, int texture_class = 0) const;
 
 	/// Store the current layer as a texture, so that it can be rendered with geometry later.
 	/// @note The texture will be extracted using the bounds defined by the active scissor region, thereby matching its size.

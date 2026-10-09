@@ -138,7 +138,7 @@ bool FontFaceLayer::Generate(const FontFaceHandleDefault* handle, const FontFace
 				Vector<byte> data;
 				if (!handle->GenerateLayerTexture(data, dimensions, effect_ptr, texture_id, handle_version) || data.empty())
 					return false;
-				if (!texture_interface.GenerateTexture(data, dimensions))
+				if (!texture_interface.GenerateTexture(data, dimensions, effect_ptr ? effect_ptr->GetTextureClass() : 0))
 					return false;
 				return true;
 			};

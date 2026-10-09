@@ -12,6 +12,11 @@ bool FontEffect::HasUniqueTexture() const
 	return false;
 }
 
+int FontEffect::GetTextureClass() const
+{
+	return 0;
+}
+
 bool FontEffect::GetGlyphMetrics(Vector2i& /*origin*/, Vector2i& /*dimensions*/, const FontGlyph& /*glyph*/) const
 {
 	return false;
