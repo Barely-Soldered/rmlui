@@ -271,7 +271,12 @@ bool ElementText::GenerateLine(String& line, int& line_length, float& line_width
 			const bool is_last_token = LastToken(next_token_begin, string_end, collapse_white_space, break_at_endline);
 			int max_token_width = RoundDownToIntegerClamped(maximum_line_width - (is_last_token ? line_width + right_spacing_width : line_width));
 
-			if (token_width > max_token_width)
+			int fit_width = token_width;
+
+			if (collapse_white_space && is_last_token && token.size() > 1 && token.back() == ' ')
+				fit_width = font_engine_interface->GetStringWidth(font_face_handle, StringView(token, 0, token.size() - 1), text_shaping_context, previous_codepoint);
+
+			if (fit_width > max_token_width)
 			{
 				if (word_break == WordBreak::BreakAll || (word_break == WordBreak::BreakWord && line.empty()))
 				{
